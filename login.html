@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speedy Math - Login</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="math-symbols" id="mathSymbols"></div>
+
+    <div class="login-container">
+        <div class="logo-section">
+            <div class="logo">∑</div>
+            <h1>Speedy Math</h1>
+            <p class="subtitle">Test your math skills against time!</p>
+        </div>
+
+        <div class="error-message" id="errorMessage"></div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">Username or Email</label>
+                <input type="text" id="username" name="username" required placeholder="Enter your username">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required placeholder="Enter your password">
+            </div>
+
+            <div class="forgot-password">
+                <a href="#" id="forgotLink">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="btn-login">Login</button>
+        </form>
+
+        <div class="divider">
+            <span>OR</span>
+        </div>
+
+        <div class="signup-link">
+            Don't have an account? <a href="#" id="signupLink">Sign up now</a>
+        </div>
+    </div>
+
+    <script src="login.js"></script>
+</body>
+</html>
