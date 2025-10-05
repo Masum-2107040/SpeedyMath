@@ -1,0 +1,260 @@
+* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-1: #996515; 
+            --color-2: #c66d5a; 
+            --color-3: #e07b4d; 
+            --color-4: #f4b693; 
+            --color-5: #ecd1c0; 
+            --text-dark: #2c2c2c;
+            --text-light: #ffffff;
+        }
+
+        body {
+            font-family: 'Tenor Sans', sans-serif;
+            background: linear-gradient(135deg, var(--color-1), var(--color-4));
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 650px;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+        }
+
+        .header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 24px 32px;
+            background: var(--color-5);
+            border-bottom: 2px solid var(--color-4);
+        }
+
+        .header_title {
+            font-size: 26px;
+            font-weight: 600;
+            color: var(--color-1);
+            letter-spacing: 0.3px;
+        }
+
+        .main-section {
+            padding: 50px 40px 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+            background: #fdfdfd;
+        }
+
+        .score-card {
+            width: 100%;
+            max-width: 450px;
+            padding: 40px 36px;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            border: 3px solid var(--color-5);
+            transition: all 0.3s ease;
+            margin-bottom: 16px;
+        }
+
+        .score-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+            border-color: var(--color-2);
+        }
+
+        .scorecard-level {
+            font-size: 20px;
+            color: #6c757d;
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+
+        .scorecard_value {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            font-size: 64px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--color-2), var(--color-3));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+
+        .scorecard_value span {
+            font-size: 32px;
+            color: var(--color-1);
+        }
+
+        .scorecard_message {
+            font-size: 18px;
+            color: var(--color-2);
+            font-weight: 600;
+            margin-top: 12px;
+            padding: 12px 20px;
+            background: var(--color-5);
+            border-radius: 10px;
+            border: 2px solid var(--color-4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .message-icon {
+            font-size: 20px;
+        }
+        .buttons-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px; 
+            width: 100%;
+            max-width: 300px;
+            margin-top: 10px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+            padding: 16px 44px; 
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-align: center;
+            width: 100%;
+            border: 2px solid transparent;
+            gap: 8px;
+        }
+
+        .btn--primary {
+            background: linear-gradient(135deg, var(--color-2), var(--color-3));
+            color: var(--text-light);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn--primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        .btn--primary:active {
+            transform: translateY(-1px);
+        }
+
+        .btn--secondary {
+            background: #ffffff;
+            color: var(--color-2);
+            border: 2px solid var(--color-2);
+            font-size: 16px;
+            padding: 14px 36px; 
+        }
+
+        .btn--secondary:hover {
+            background: var(--color-5);
+            color: var(--color-1);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn--secondary:active {
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                border-radius: 16px;
+                max-width: 100%;
+            }
+            
+            .header {
+                padding: 20px 24px;
+            }
+            
+            .header_title {
+                font-size: 20px;
+            }
+            
+            .main-section {
+                padding: 40px 24px 50px;
+            }
+            
+            .score-card {
+                padding: 32px 28px;
+                max-width: 100%;
+            }
+            
+            .scorecard-level {
+                font-size: 18px;
+            }
+            
+            .scorecard_value {
+                font-size: 52px;
+            }
+
+            .scorecard_message {
+                font-size: 16px;
+                padding: 10px 16px;
+            }
+            
+            .buttons-container {
+                max-width: 100%;
+                gap: 16px; 
+            }
+            
+            .btn {
+                max-width: 240px;
+                font-size: 16px;
+                padding: 14px 36px;
+            }
+            
+            .btn--secondary {
+                font-size: 15px;
+                padding: 12px 32px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header_title {
+                font-size: 18px;
+            }
+
+            .score-card {
+                padding: 28px 20px;
+            }
+            
+            .scorecard_value {
+                font-size: 44px;
+            }
+
+            .scorecard_message {
+                font-size: 15px;
+            }
+
+            .btn {
+                max-width: 220px;
+                font-size: 15px;
+            }
+        }
