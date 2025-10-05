@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Speedy Math - Quiz Setup</title>
+  <link rel="stylesheet" href="quizform.css">
+</head>
+<body>
+
+  <div class="container">
+    <h1>Speedy Math Quiz Setup</h1>
+    <form id="quizForm">
+      <label for="timeSelect">⏱ Choose Time Limit:</label>
+      <select id="timeSelect" required>
+        <option value="1">1 Minute</option>
+        <option value="2">2 Minutes</option>
+        <option value="5">5 Minutes</option>
+      </select>
+
+      <label>🧮 Select Operations:</label>
+      <div class="checkbox-group">
+        <input type="checkbox" id="add" value="+" />
+        <label for="add">Addition (+)</label>
+
+        <input type="checkbox" id="sub" value="-" />
+        <label for="sub">Subtraction (-)</label>
+
+        <input type="checkbox" id="mul" value="*" />
+        <label for="mul">Multiplication (×)</label>
+
+        <input type="checkbox" id="div" value="/" />
+        <label for="div">Division (÷)</label>
+      </div>
+
+      <label for="digits">🔢 Max Number of Digits:</label>
+      <input type="number" id="digits" min="1" max="5" value="2" required />
+
+      <button type="submit">Start Quiz</button>
+    </form>
+
+    <div class="output" id="output"></div>
+  </div>
+</body>
+</html>
