@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Speedy Math - Quiz</title>
+  <link rel="stylesheet" href="quiz.css" />
+</head>
+<body>
+
+  <div class="quiz-container">
+    <h1>Speedy Math</h1>
+    <div class="timer" id="timer">⏱ 01:00</div>
+
+    <div class="problem" id="problem">--</div>
+
+    <input type="text" id="answer" class="answer" readonly placeholder="Your answer" />
+
+    <!-- ✅ Added minus key -->
+    <div class="numpad" id="numpad">
+      <button class="key">7</button>
+      <button class="key">8</button>
+      <button class="key">9</button>
+      <button class="key">4</button>
+      <button class="key">5</button>
+      <button class="key">6</button>
+      <button class="key">1</button>
+      <button class="key">2</button>
+      <button class="key">3</button>
+      <button class="key">0</button>
+      <button class="key">.</button>
+      <button class="key" id="minus">−</button>
+      <button class="key" id="clear">⌫</button>
+    </div>
+
+    <button class="btn-next" id="submitBtn">Submit</button>
+
+    <div class="feedback" id="feedback"></div>
+  </div>
+
+  <script src="quiz.js"></script>
+</body>
+</html>
