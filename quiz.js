@@ -1,3 +1,25 @@
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyBFbq1LYAwHp-anMvKIJZzd8YvTCrkZYP4",
+  authDomain: "speedymath-adeae.firebaseapp.com",
+  databaseURL: "https://speedymath-adeae-default-rtdb.firebaseio.com",
+  projectId: "speedymath-adeae",
+  storageBucket: "speedymath-adeae.firebasestorage.app",
+  messagingSenderId: "838511822961",
+  appId: "1:838511822961:web:607e475091514d0222f3d0",
+  measurementId: "G-4Q265WEJK0"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 document.addEventListener("DOMContentLoaded", () => {
   const quizDuration = 60; // seconds
   const maxDigits = 2;
