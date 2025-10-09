@@ -51,7 +51,8 @@ form.addEventListener('submit', function(e) {
                     }
                 });
                 if (found) {
-                    alert('Login successful! Redirecting to quiz...');
+                     window.location.href = 'dashboard.html';
+                    //alert('Login successful! Redirecting to quiz...');
                     // window.location.href = 'quiz.html';
                 } else {
                     errorMessage.textContent = 'Invalid username or password';
