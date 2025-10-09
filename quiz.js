@@ -19,7 +19,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// Get the HTML element to display the connection status
 const connectionStatusSpan = document.getElementById('connectionStatus');
 
 
@@ -40,22 +39,19 @@ async function saveResult(result) {
   if (!db) return console.warn('Database not initialized, not saving result');
 
   try {
-    // Prefer storing quizzes under a dedicated path
     const resultsRef = ref(db, 'quiz');
-    const newRef = push(resultsRef); // generates unique quiz id
+    const newRef = push(resultsRef); 
     const quizId = newRef.key;
 
-    // try to determine userId: prefer sessionStorage, fall back to firebase auth if available
+    
     const userId =
       sessionStorage.getItem('userId') || 'anonymous';
 
-    // Attach meta fields
     const payload = Object.assign({}, result, {
       quizId,
       userId
     });
 
-    // write payload including quizId
     await set(newRef, payload);
     const statusEl = document.getElementById('connectionStatus');
     if (statusEl) statusEl.textContent = 'Last result saved';
@@ -211,22 +207,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const configuredDuration = quizDuration || (settings && settings.durationSeconds) || 60;
   const actualTimeUsedSeconds = typeof timeLeft === 'number' ? (configuredDuration - timeLeft) : configuredDuration;
 
-  // compute accuracy and speed
   const totalQuestions = q_num || 0;
   const correctAnswers = score || 0;
   const accuracyRate = totalQuestions > 0 ? correctAnswers / totalQuestions : 0;
-  // speed = correct answers per second (or per minute if you prefer)
+
   const speed = actualTimeUsedSeconds > 0 ? (correctAnswers / actualTimeUsedSeconds) : 0;
 
-  // build result object
   const result = {
     timestamp: new Date().toISOString(),
     durationSeconds: configuredDuration,
     actualTimeUsedSeconds,
     correctAnswers,
     totalQuestions,
-    accuracyRate, // e.g. 0.8
-    speed, // correct answers per second
+    accuracyRate, 
+    speed,
     maxDigits: maxDigits,
     operations: {
       add: operations.includes('+'),
