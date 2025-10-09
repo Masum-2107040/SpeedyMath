@@ -1,24 +1,26 @@
-// // Import the functions you need from the SDKs you need
-// import { initializeApp } from "firebase/app";
-// import { getAnalytics } from "firebase/analytics";
-// // TODO: Add SDKs for Firebase products that you want to use
-// // https://firebase.google.com/docs/web/setup#available-libraries
-// // Your web app's Firebase configuration
-// // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-// const firebaseConfig = {
-//   apiKey: "AIzaSyBFbq1LYAwHp-anMvKIJZzd8YvTCrkZYP4",
-//   authDomain: "speedymath-adeae.firebaseapp.com",
-//   databaseURL: "https://speedymath-adeae-default-rtdb.firebaseio.com",
-//   projectId: "speedymath-adeae",
-//   storageBucket: "speedymath-adeae.firebasestorage.app",
-//   messagingSenderId: "838511822961",
-//   appId: "1:838511822961:web:607e475091514d0222f3d0",
-//   measurementId: "G-4Q265WEJK0"
-// };
+// Import the necessary Firebase functions directly from CDN
+// Using a recent stable version of the modular SDK
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+import { getDatabase, ref, get, connectDatabaseEmulator , push, set} from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
 
-// // Initialize Firebase
-// const app = initializeApp(firebaseConfig);
-// const analytics = getAnalytics(app);
+// Your web app's Firebase configuration (using the values you provided)
+const firebaseConfig = {
+  apiKey: "AIzaSyBFbq1LYAwHp-anMvKIJZzd8YvTCrkZYP4",
+  authDomain: "speedymath-adeae.firebaseapp.com",
+  databaseURL: "https://speedymath-adeae-default-rtdb.firebaseio.com",
+  projectId: "speedymath-adeae",
+  storageBucket: "speedymath-adeae.firebasestorage.app",
+  messagingSenderId: "838511822961",
+  appId: "1:838511822961:web:607e475091514d0222f3d0",
+  measurementId: "G-4Q265WEJK0"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+// Get the HTML element to display the connection status
+const connectionStatusSpan = document.getElementById('connectionStatus');
 
 
 const symbols = ['+', '−', '×', '÷', '=', '√', 'π', '∞', '∑', '∫'];
@@ -34,7 +36,37 @@ for (let i = 0; i < 15; i++) {
     symbol.style.animationDuration = (15 + Math.random() * 10) + 's';
     container.appendChild(symbol);
 }
+async function saveResult(result) {
+  if (!db) return console.warn('Database not initialized, not saving result');
 
+  try {
+    // Prefer storing quizzes under a dedicated path
+    const resultsRef = ref(db, 'quiz');
+    const newRef = push(resultsRef); // generates unique quiz id
+    const quizId = newRef.key;
+
+    // try to determine userId: prefer sessionStorage, fall back to firebase auth if available
+    const userId =
+      sessionStorage.getItem('userId') || 'anonymous';
+
+    // Attach meta fields
+    const payload = Object.assign({}, result, {
+      quizId,
+      userId
+    });
+
+    // write payload including quizId
+    await set(newRef, payload);
+    const statusEl = document.getElementById('connectionStatus');
+    if (statusEl) statusEl.textContent = 'Last result saved';
+    return quizId;
+  } catch (err) {
+    console.error('Failed to save result:', err);
+    const statusEl = document.getElementById('connectionStatus');
+    if (statusEl) statusEl.textContent = 'Save failed';
+    throw err;
+  }
+}
 document.addEventListener("DOMContentLoaded", () => {
  
   const raw = sessionStorage.getItem('speedyQuizSettings');
@@ -176,7 +208,35 @@ document.addEventListener("DOMContentLoaded", () => {
     submitBtn.disabled = true;
    
     if (numpad) numpad.style.display = "none";
+  const configuredDuration = quizDuration || (settings && settings.durationSeconds) || 60;
+  const actualTimeUsedSeconds = typeof timeLeft === 'number' ? (configuredDuration - timeLeft) : configuredDuration;
 
+  // compute accuracy and speed
+  const totalQuestions = q_num || 0;
+  const correctAnswers = score || 0;
+  const accuracyRate = totalQuestions > 0 ? correctAnswers / totalQuestions : 0;
+  // speed = correct answers per second (or per minute if you prefer)
+  const speed = actualTimeUsedSeconds > 0 ? (correctAnswers / actualTimeUsedSeconds) : 0;
+
+  // build result object
+  const result = {
+    timestamp: new Date().toISOString(),
+    durationSeconds: configuredDuration,
+    actualTimeUsedSeconds,
+    correctAnswers,
+    totalQuestions,
+    accuracyRate, // e.g. 0.8
+    speed, // correct answers per second
+    maxDigits: maxDigits,
+    operations: {
+      add: operations.includes('+'),
+      sub: operations.includes('-'),
+      mul: operations.includes('*'),
+      div: operations.includes('/')
+    }
+  };
+
+    saveResult(result);
    
     const restart = document.createElement('div');
     restart.style.marginTop = '12px';
