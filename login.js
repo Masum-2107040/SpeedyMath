@@ -1,3 +1,19 @@
+// Firebase setup
+const firebaseConfig = {
+  apiKey: "AIzaSyBFbq1LYAwHp-anMvKIJZzd8YvTCrkZYP4",
+  authDomain: "speedymath-adeae.firebaseapp.com",
+  databaseURL: "https://speedymath-adeae-default-rtdb.firebaseio.com",
+  projectId: "speedymath-adeae",
+  storageBucket: "speedymath-adeae.appspot.com",
+  messagingSenderId: "838511822961",
+  appId: "1:838511822961:web:607e475091514d0222f3d0",
+  measurementId: "G-4Q265WEJK0"
+};
+
+// Initialize Firebase (make sure Firebase scripts are loaded in your HTML)
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
+
 // Floating math symbols animation
 const symbols = ['+', '−', '×', '÷', '=', '√', 'π', '∞', '∑', '∫'];
 const container = document.getElementById('mathSymbols');
@@ -23,16 +39,35 @@ form.addEventListener('submit', function(e) {
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
 
-    // Store credentials in memory (replace with actual authentication)
-    const credentials = {
-        username: username,
-        timestamp: new Date().toISOString()
-    };
-
-    // Simulate login validation
     if (username && password) {
-        alert('Login successful! Redirecting to quiz...');
-        // In a real app, redirect to quiz page: window.location.href = 'quiz.html';
+        // Fetch users from Firebase and check credentials
+        database.ref('users').once('value')
+            .then(snapshot => {
+                let found = false;
+                snapshot.forEach(child => {
+                    const user = child.val();
+                    if (user.username === username && user.password === password) {
+                        found = true;
+                    }
+                });
+                if (found) {
+                    alert('Login successful! Redirecting to quiz...');
+                    // window.location.href = 'quiz.html';
+                } else {
+                    errorMessage.textContent = 'Invalid username or password';
+                    errorMessage.style.display = 'block';
+                    setTimeout(() => {
+                        errorMessage.style.display = 'none';
+                    }, 3000);
+                }
+            })
+            .catch(error => {
+                errorMessage.textContent = 'Login failed. Try again.';
+                errorMessage.style.display = 'block';
+                setTimeout(() => {
+                    errorMessage.style.display = 'none';
+                }, 3000);
+            });
     } else {
         errorMessage.textContent = 'Please fill in all fields';
         errorMessage.style.display = 'block';
