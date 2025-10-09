@@ -1,3 +1,20 @@
+// Firebase setup
+const firebaseConfig = {
+  apiKey: "AIzaSyBFbq1LYAwHp-anMvKIJZzd8YvTCrkZYP4",
+  authDomain: "speedymath-adeae.firebaseapp.com",
+  databaseURL: "https://speedymath-adeae-default-rtdb.firebaseio.com",
+  projectId: "speedymath-adeae",
+  storageBucket: "speedymath-adeae.appspot.com",
+  messagingSenderId: "838511822961",
+  appId: "1:838511822961:web:607e475091514d0222f3d0",
+  measurementId: "G-4Q265WEJK0"
+};
+
+// Correct initialization
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
+const auth = firebase.auth();
+
 // Floating math symbols animation
 const symbols = ['+', '−', '×', '÷', '=', '√', 'π', '∞', '∑', '∫'];
 const container = document.getElementById('mathSymbols');
@@ -24,16 +41,24 @@ form.addEventListener('submit', function(e) {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
-    const credentials = {
-        username: username,
-        email: email,
-        password: password,
-    };
-
-    // Simulate registration validation
     if (username && password && email) {
-        alert('Login successful! Redirecting to quiz...');
-        // In a real app, redirect to quiz page: window.location.href = 'quiz.html';
+        // Save registration data to Firebase Realtime Database
+        database.ref('users').push({
+            username: username,
+            email: email,
+            password: password
+        })
+        .then(() => {
+            alert('Registration successful! Redirecting to quiz...');
+            // window.location.href = 'quiz.html';
+        })
+        .catch((error) => {
+            errorMessage.textContent = 'Failed to register. Try again.';
+            errorMessage.style.display = 'block';
+            setTimeout(() => {
+                errorMessage.style.display = 'none';
+            }, 3000);
+        });
     } else {
         errorMessage.textContent = 'Please fill in all fields';
         errorMessage.style.display = 'block';
@@ -43,8 +68,7 @@ form.addEventListener('submit', function(e) {
     }
 });
 
-
 document.getElementById('loginLink').addEventListener('click', function(e) {
     e.preventDefault();
-    alert('log in page coming soon!');
+    window.location.href = 'login.html';
 });
