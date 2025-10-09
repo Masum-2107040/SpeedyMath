@@ -11,27 +11,37 @@ for (let i = 0; i < 15; i++) {
     symbol.style.animationDuration = (15 + Math.random() * 10) + 's';
     container.appendChild(symbol);
 }
+
 const form = document.getElementById("quizForm");
-    const output = document.getElementById("output");
+const output = document.getElementById("output");
 
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
 
-      const time = document.getElementById("timeSelect").value;
-      const digits = document.getElementById("digits").value;
-      const operations = [...document.querySelectorAll(".checkbox-group input:checked")]
-        .map(op => op.value);
+  const timeMinutes = parseInt(document.getElementById("timeSelect").value, 10);
+  const durationSeconds = Math.max(10, timeMinutes * 60); 
 
-      if (operations.length === 0) {
-        alert("Please select at least one math operation!");
-        return;
-      }
+  const digits = parseInt(document.getElementById("digits").value, 10) || 2;
+  const maxDigits = Math.min(Math.max(digits, 1), 5); 
 
-      //output.style.display = "block";
-     // output.innerHTML = `
-       // <strong>Quiz Settings:</strong><br>
-       // ⏱ Time Limit: ${time} minute(s)<br>
-       // 🔢 Max Digits: ${digits}<br>
-        //🧮 Operations: ${operations.join(", ")}
-     // `;
-    });
+  const operations = [...document.querySelectorAll(".checkbox-group input:checked")]
+    .map(op => op.value);
+
+  if (operations.length === 0) {
+    alert("Please select at least one math operation!");
+    return;
+  }
+
+  const settings = {
+    durationSeconds,
+    maxDigits,
+    operations
+  };
+
+
+  sessionStorage.setItem('speedyQuizSettings', JSON.stringify(settings));
+
+  
+
+  window.location.href = "quiz.html";
+});
