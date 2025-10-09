@@ -50,5 +50,5 @@ document.getElementById('forgotLink').addEventListener('click', function(e) {
 
 document.getElementById('signupLink').addEventListener('click', function(e) {
     e.preventDefault();
-    alert('Sign up page coming soon!');
+    window.location.href = 'registration.html';
 });
