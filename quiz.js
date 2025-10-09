@@ -195,15 +195,14 @@ document.addEventListener("DOMContentLoaded", () => {
    
     setTimeout(generateProblem, 700);
   }
-
+let quizEnded = false;
  
   function endQuiz() {
-    problemEl.textContent = `Total questions: ${q_num}`;
-    feedbackEl.style.color = "#0072ff";
-    feedbackEl.textContent = `Your score: ${score}`;
-    submitBtn.disabled = true;
-   
-    if (numpad) numpad.style.display = "none";
+    if (quizEnded) return;
+  quizEnded = true;
+    answerEl.disabled = true;
+submitBtn.disabled = true;
+
   const configuredDuration = quizDuration || (settings && settings.durationSeconds) || 60;
   const actualTimeUsedSeconds = typeof timeLeft === 'number' ? (configuredDuration - timeLeft) : configuredDuration;
 
@@ -229,26 +228,26 @@ document.addEventListener("DOMContentLoaded", () => {
       div: operations.includes('/')
     }
   };
+      saveResult(result);
 
-    saveResult(result);
-   
-    const restart = document.createElement('div');
-    restart.style.marginTop = '12px';
-    restart.innerHTML = `<button id="restartBtn">Play again</button>`;
-    feedbackEl.parentNode.appendChild(restart);
-    document.getElementById('restartBtn').addEventListener('click', () => {
-    
-      score = 0;
-      q_num = 0;
-      timeLeft = quizDuration;
-      submitBtn.disabled = false;
-      if (numpad) numpad.style.display = "";
-      generateProblem();
-      if (timer) clearInterval(timer);
-      startTimer();
-      restart.remove();
-      feedbackEl.textContent = '';
-    });
+const summaryData = {
+  durationSeconds: quizDuration,
+  totalQuestions: q_num,
+  correctAnswers: score,
+  speed,
+  accuracyRate,
+  settings, 
+};
+
+
+sessionStorage.setItem("speedyQuizResult", JSON.stringify(summaryData));
+
+problemEl.textContent = "Quiz Over!";
+setTimeout(() => {
+  window.location.href = "result.html";
+},2000); 
+
+
   }
 
  
