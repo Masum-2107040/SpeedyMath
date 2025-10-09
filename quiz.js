@@ -1,9 +1,21 @@
+const symbols = ['+', '−', '×', '÷', '=', '√', 'π', '∞', '∑', '∫'];
+const container = document.getElementById('mathSymbols');
+
+for (let i = 0; i < 15; i++) {
+    const symbol = document.createElement('div');
+    symbol.className = 'symbol';
+    symbol.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+    symbol.style.left = Math.random() * 100 + '%';
+    symbol.style.top = Math.random() * 100 + '%';
+    symbol.style.animationDelay = Math.random() * 5 + 's';
+    symbol.style.animationDuration = (15 + Math.random() * 10) + 's';
+    container.appendChild(symbol);
+}
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -20,6 +32,9 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
+
+
+
 document.addEventListener("DOMContentLoaded", () => {
   const quizDuration = 60; // seconds
   const maxDigits = 2;
