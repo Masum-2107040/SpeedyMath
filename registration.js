@@ -49,8 +49,10 @@ form.addEventListener('submit', function(e) {
             password: password
         })
         .then(() => {
-            alert('Registration successful! Redirecting to quiz...');
-            // window.location.href = 'quiz.html';
+            errorMessage.textContent = 'Registration successful! Redirecting to quiz...';
+            errorMessage.style.display = 'block';
+            errorMessage.style.color = 'green';
+            window.location.href = 'dashboard.html';
         })
         .catch((error) => {
             errorMessage.textContent = 'Failed to register. Try again.';
