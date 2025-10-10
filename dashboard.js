@@ -36,7 +36,7 @@ navItems.forEach(item => {
 const startQuizBtn = document.getElementById('startQuizBtn');
 startQuizBtn.addEventListener('click', function() {
     alert('Starting new quiz! This will redirect to the quiz page.');
-    // In a real app: window.location.href = 'quiz.html';
+    window.location.href = 'quiz.html';
 });
 
 // Logout handler
@@ -46,7 +46,7 @@ logoutBtn.addEventListener('click', function(e) {
     const confirm = window.confirm('Are you sure you want to logout?');
     if (confirm) {
         alert('Logging out...');
-        // In a real app: window.location.href = 'login.html';
+        window.location.href = 'homepage.html';
     }
 });
 
