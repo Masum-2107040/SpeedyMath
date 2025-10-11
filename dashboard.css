@@ -21,6 +21,23 @@ body {
     overflow-y: auto;
     transition: transform 0.3s ease;
     z-index: 1000;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+}
+
+.sidebar.active {
+    transform: translateX(0);
+}
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.3);
+    z-index: 999;
+}
+.sidebar.active ~ .sidebar-overlay {
+    display: block;
 }
 
 .logo-section {
@@ -90,9 +107,10 @@ body {
 
 /* Main Content */
 .main-content {
-    margin-left: 260px;
+    margin-left: 0;
     flex: 1;
-    width: calc(100% - 260px);
+    width: 100%;
+    transition: margin-left 0.3s;
 }
 
 /* Header */
@@ -109,7 +127,7 @@ body {
 }
 
 .menu-toggle {
-    display: none;
+    display: block;
     background: none;
     border: none;
     font-size: 1.5rem;
@@ -472,22 +490,14 @@ body {
 }
 
 @media (max-width: 768px) {
-    .sidebar {
-        transform: translateX(-100%);
-    }
-
-    .sidebar.active {
-        transform: translateX(0);
-    }
+   
 
     .main-content {
         margin-left: 0;
         width: 100%;
     }
 
-    .menu-toggle {
-        display: block;
-    }
+ 
 
     .dashboard-container {
         padding: 20px;
@@ -513,5 +523,11 @@ body {
 
     .page-title {
         font-size: 1.8rem;
+    }
+}
+@media (min-width: 769px) {
+    .sidebar.active ~ .main-content {
+        margin-left: 260px;
+        width: calc(100% - 260px);
     }
 }

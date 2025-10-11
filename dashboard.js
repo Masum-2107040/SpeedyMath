@@ -22,6 +22,7 @@ const sidebar = document.getElementById('sidebar');
 const modal = document.getElementById('modal');
 const modalBody = document.getElementById('modal-body');
 const closeBtn = modal.querySelector('.close-btn');
+const sidebarOverlay = document.getElementById('sidebarOverlay');
 
 // Authentication Check
 function checkAuth() {
@@ -32,6 +33,27 @@ function checkAuth() {
   }
   return true;
 }
+//sidebarOverlay.style.display = 'none';
+menuToggle.addEventListener('click', () => {
+  sidebar.classList.add('active');
+  sidebarOverlay.style.display = 'block';
+});
+sidebarOverlay.addEventListener('click', () => {
+  sidebar.classList.remove('active');
+  sidebarOverlay.style.display = 'none';
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    sidebar.classList.remove('active');
+    sidebarOverlay.style.display = 'none';
+  }
+});
+
+
+
+
+
+
 async function loadDashboardData() {
   try {
     showLoading();
@@ -307,7 +329,6 @@ function closeModal() {
 }
 
 // Event Listeners
-menuToggle.addEventListener('click', () => sidebar.classList.toggle('active'));
 
 closeBtn.addEventListener('click', closeModal);
 

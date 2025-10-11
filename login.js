@@ -141,4 +141,5 @@ window.addEventListener('DOMContentLoaded', () => {
         console.log('ℹ️ User already logged in, redirecting to dashboard');
         window.location.href = 'dashboard.html';
     }
+
 });
