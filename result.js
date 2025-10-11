@@ -1,5 +1,4 @@
-// Read summaryData saved by quiz.js (sessionStorage key: speedyQuizResult)
-// No Firebase connection — purely client-side display and local storage.
+
 
 function getQuizResults() {
     const raw = sessionStorage.getItem('speedyQuizResult');
@@ -15,7 +14,7 @@ function getQuizResults() {
         }
     }
 
-    // Fallback to URL params if provided
+   
     const params = new URLSearchParams(window.location.search);
     const pScore = params.get('score');
     const pTotal = params.get('total');
@@ -26,7 +25,7 @@ function getQuizResults() {
         return { score, total, percentage, meta: null };
     }
 
-    // Final fallback
+
     return { score: 0, total: 10, percentage: 0, meta: null };
 }
 
@@ -63,11 +62,10 @@ function displayResults() {
 
     animateScore(score);
 
-    // Save a lightweight copy for later/fallback
+
     try {
         localStorage.setItem('lastQuizResults', JSON.stringify({ score, total, percentage, meta: results.meta || null }));
     } catch (e) {
-        // ignore storage errors (e.g. quota)
     }
 }
 
@@ -99,15 +97,11 @@ function animateScore(targetScore) {
 window.addEventListener('DOMContentLoaded', () => {
     displayResults();
 
-    // Play Again button -> start quiz page (if exists). Adjust target if your quiz page uses a different filename.
     const playBtn = document.querySelector('.btn--primary');
     if (playBtn) {
         playBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            // change to the correct quiz start page if different
             window.location.href = 'quiz.html';
         });
     }
-
-    // Back to Dashboard button already points to dashboard.html in the markup.
 });
