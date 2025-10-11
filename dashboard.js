@@ -638,14 +638,38 @@ async function showFullLeaderboard() {
   }
 }
 
-document.getElementById('logoutBtn')?.addEventListener('click', e => {
-  e.preventDefault();
-  if (confirm('Are you sure you want to logout?')) {
+// document.getElementById('logoutBtn')?.addEventListener('click', e => {
+//   e.preventDefault();
+//   if (confirm('Are you sure you want to logout?')) {
+//     localStorage.removeItem('currentUser');
+//     localStorage.removeItem('isLoggedIn');
+//     localStorage.removeItem('userEmail');
+//     window.location.href = 'login.html';
+//   }
+// });
+function showLogoutConfirm() {
+  openModal(`
+    <div style="text-align:center;padding:30px;">
+      <h3 style="margin-bottom:20px;">Are you sure you want to logout?</h3>
+      <button id="confirmLogoutBtn" style="margin-right:10px;padding:8px 18px;background:#f44336;color:white;border:none;border-radius:5px;cursor:pointer;">Logout</button>
+      <button id="cancelLogoutBtn" style="padding:8px 18px;background:#eee;color:#333;border:none;border-radius:5px;cursor:pointer;">Cancel</button>
+    </div>
+  `);
+
+  document.getElementById('confirmLogoutBtn')?.addEventListener('click', () => {
     localStorage.removeItem('currentUser');
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('userEmail');
     window.location.href = 'login.html';
-  }
+  });
+
+  document.getElementById('cancelLogoutBtn')?.addEventListener('click', closeModal);
+}
+
+// Replace the old logout event:
+document.getElementById('logoutBtn')?.addEventListener('click', e => {
+  e.preventDefault();
+  showLogoutConfirm();
 });
 
 const observer = new IntersectionObserver(entries => {
