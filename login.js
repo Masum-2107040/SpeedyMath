@@ -137,6 +137,17 @@ form.addEventListener('submit', async function(e) {
     }
 });
 
+<<<<<<< HEAD
+// // Link handlers
+// document.getElementById('forgotLink').addEventListener('click', function(e) {
+//     e.preventDefault();
+//     alert('Password reset feature coming soon!');
+// });
+
+document.getElementById('signupLink').addEventListener('click', function(e) {
+    e.preventDefault();
+    window.location.href = 'registration.html';
+=======
 // Optional: Check if already logged in
 window.addEventListener('DOMContentLoaded', () => {
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
@@ -146,4 +157,5 @@ window.addEventListener('DOMContentLoaded', () => {
         console.log('ℹ️ User already logged in, redirecting to dashboard');
         window.location.href = 'dashboard.html';
     }
+>>>>>>> 16a8da993cdce455f73ac942a7835c185e53f468
 });
