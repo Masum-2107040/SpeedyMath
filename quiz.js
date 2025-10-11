@@ -44,12 +44,14 @@ async function saveResult(result) {
     const quizId = newRef.key;
 
     
-    const userId =
-      sessionStorage.getItem('userId') || 'anonymous';
+    const username =
+      localStorage.getItem('currentUser') || 'anonymous';
+      const email = localStorage.getItem('userEmail') || '';
 
     const payload = Object.assign({}, result, {
       quizId,
-      userId
+      username,
+      email
     });
 
     await set(newRef, payload);
