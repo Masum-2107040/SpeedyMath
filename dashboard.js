@@ -33,6 +33,20 @@ function checkAuth() {
   }
   return true;
 }
+//math symbols
+// Floating math symbols animation
+const symbols = ['+', '−', '×', '÷', '=', '√', 'π', '∞', '∑', '∫'];
+const container = document.getElementById('mathSymbols');
+for (let i = 0; i < 15; i++) {
+    const symbol = document.createElement('div');
+    symbol.className = 'symbol';
+    symbol.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+    symbol.style.left = Math.random() * 100 + '%';
+    symbol.style.top = Math.random() * 100 + '%';
+    symbol.style.animationDelay = Math.random() * 5 + 's';
+    symbol.style.animationDuration = (15 + Math.random() * 10) + 's';
+    container.appendChild(symbol);
+}
 //sidebarOverlay.style.display = 'none';
 menuToggle.addEventListener('click', () => {
   sidebar.classList.add('active');
