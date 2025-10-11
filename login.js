@@ -78,11 +78,11 @@ form.addEventListener('submit', function(e) {
     }
 });
 
-// Link handlers
-document.getElementById('forgotLink').addEventListener('click', function(e) {
-    e.preventDefault();
-    alert('Password reset feature coming soon!');
-});
+// // Link handlers
+// document.getElementById('forgotLink').addEventListener('click', function(e) {
+//     e.preventDefault();
+//     alert('Password reset feature coming soon!');
+// });
 
 document.getElementById('signupLink').addEventListener('click', function(e) {
     e.preventDefault();
