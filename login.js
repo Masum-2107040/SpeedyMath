@@ -85,7 +85,6 @@ form.addEventListener('submit', async function(e) {
         
         snapshot.forEach(child => {
             const user = child.val();
-            // Check both username and email for login
             if ((user.username === username || user.email === username) && user.password === password) {
                 foundUser = {
                     id: child.key,
@@ -98,8 +97,6 @@ form.addEventListener('submit', async function(e) {
         
         if (foundUser) {
             console.log('✅ User found:', foundUser.username);
-            
-            // 🔥 CRITICAL: Save session to localStorage
             localStorage.setItem('currentUser', foundUser.username);
             localStorage.setItem('isLoggedIn', 'true');
             localStorage.setItem('userEmail', foundUser.email || '');
@@ -136,9 +133,6 @@ form.addEventListener('submit', async function(e) {
         showError('Login failed. Please try again.');
     }
 });
-
-
-// Optional: Check if already logged in
 window.addEventListener('DOMContentLoaded', () => {
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
     const currentUser = localStorage.getItem('currentUser');
