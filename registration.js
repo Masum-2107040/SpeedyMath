@@ -24,7 +24,7 @@ for (let i = 0; i < 15; i++) {
   container.appendChild(symbol);
 }
 
-const form = document.getElementById('registrationForm');
+const form = document.getElementById('regForm');
 const errorMessage = document.getElementById('errorMessage');
 
 function showError(message) {
