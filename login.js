@@ -138,8 +138,11 @@ form.addEventListener('submit', async function(e) {
 });
 
 <<<<<<< HEAD
-=======
-
+// // Link handlers
+// document.getElementById('forgotLink').addEventListener('click', function(e) {
+//     e.preventDefault();
+//     alert('Password reset feature coming soon!');
+// });
 
 document.getElementById('signupLink').addEventListener('click', function(e) {
     e.preventDefault();
