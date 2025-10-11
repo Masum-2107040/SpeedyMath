@@ -137,6 +137,7 @@ form.addEventListener('submit', async function(e) {
     }
 });
 
+
 // Optional: Check if already logged in
 window.addEventListener('DOMContentLoaded', () => {
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
@@ -146,4 +147,5 @@ window.addEventListener('DOMContentLoaded', () => {
         console.log('ℹ️ User already logged in, redirecting to dashboard');
         window.location.href = 'dashboard.html';
     }
+
 });
